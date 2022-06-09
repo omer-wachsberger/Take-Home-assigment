@@ -1,0 +1,133 @@
+<html>
+
+<head>
+  <style>
+    body {
+      text-align: center;
+    }
+
+    h2 {
+      margin: 1em 0 0.25em;
+    }
+
+    table,
+    tr,
+    td {
+      border: 1px solid black;
+
+    }
+
+    table {
+      border-collapse: collapse;
+      margin: 0 auto;
+    }
+
+    tr {
+      height: 40px;
+    }
+
+    td {
+      width: 40px;
+    }
+
+    input[type="number"] {
+      width: 6em;
+    }
+
+    .two-butts {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
+
+  <script>
+    function makeGrid() {
+      console.log("makeGrid is running!");
+
+      var canvas, cell, gridHeight, gridWidth, rows, start;
+
+      canvas = $("#pixel_canvas");
+      gridHeight = $("#pick-mode").val();
+      gridWidth = $("#pick-mode").val();
+
+      canvas.children().remove();
+
+      for (x = 0; x < gridHeight; x++) {
+        canvas.append("<tr></tr>");
+      }
+
+      rows = $("tr");
+
+      for (y = 0; y < gridWidth; y++) {
+        rows.append("<td></td>");
+      }
+
+      cell = canvas.find("td");
+
+      var submitQuery = $('input[type="submit"]');
+
+      submitQuery.click(function (event) {
+        event.preventDefault();
+        makeGrid();
+      });
+
+      //if the cell is white and the mouse enters the cell turns blue.
+      //if the cell is blue and the mouse enters the cell turns white.
+      $(function () {
+        currentvalue = document.getElementById("start/resume").value;
+        if (currentvalue == "Start") {
+          cell.mouseenter(
+
+            function () {
+
+              $(this).toggleClass("bg-primary bg-default hovered");
+            },
+            function () {
+              $(this).toggleClass("bg-primary bg-default hovered");
+            }
+          )
+        };
+      });
+    }
+
+    //the function turns the start button value to resume.
+    function start_resume() {
+      currentvalue = document.getElementById("start/resume").value;
+      if (currentvalue == "Start") {
+        document.getElementById("start/resume").value = "Resume";
+      } else {
+        document.getElementById("start/resume").value = "Start";
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <div class="two-butts">
+    <form>
+      <label>
+        <select id="pick-mode" name="Pick_Mode" size="1" onchange="makeGrid()">
+          <option value="Pick Mode" selected>Pick Mode</option>
+          <option value="5">5x5 </option>
+          <option value="6">6x6</option>
+          <option value="7">7x7</option>
+          <option value="8">8x8</option>
+          <option value="9">9x9</option>
+          <option value="10">10x10</option>
+        </select>
+      </label>
+      <input id="start/resume" type="submit" value="Start" onclick="start_resume();"
+        style="background-color: #0275d8; color: white" ; />
+    </form>
+  </div>
+  <table id="pixel_canvas"></table>
+</body>
+</body>
+
+</html>
